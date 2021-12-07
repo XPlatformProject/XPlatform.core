@@ -4,6 +4,9 @@
 ![License](https://img.shields.io/badge/License-MIT-Red?style=for-the-badge)
 
 ---
+[Wiki](docs/Wiki.md) 
+---
+
 ## Introduction
 
 ### XPlatform.core is an open source, multi-platform core library of the XPlatform engine, for working with dynamic libraries. 
