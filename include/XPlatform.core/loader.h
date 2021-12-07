@@ -1,8 +1,7 @@
 #ifndef _INC_XPLATFROM_LOADER_H
 #define _INC_XPLATFROM_LOADER_H
 
-#include<xplatform.core/api.h>
-#include<xplatform.core/module.h>
+#include<XPlatform.core/api.h>
 
 namespace XPlatform {
 	namespace core {

@@ -57,7 +57,7 @@ XPlatform::Api::XPResult XPlatform::core::XPlatformExtensionModule::Load(const s
 		return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED;
 	}
 
-	return XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS();
+	return XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS;
 }
 
 XPlatform::core::XPlatformExtensionModule::RawXPlatformExtensionModuleHandle 

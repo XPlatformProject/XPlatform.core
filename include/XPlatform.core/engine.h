@@ -1,9 +1,9 @@
 #ifndef _INC_XPLATFROM_CORE_ENGINE_H
 #define _INC_XPLATFROM_CORE_ENGINE_H
 
-#include <xplatform.core/api.h>
+#include <XPlatform.core/api.h>
 #ifndef _XPLATFORM_DONT_INCLUDE_EXT_MODULE_H
-#include <xplatform.core/ext_module.h>
+#include <XPlatform.core/ext_module.h>
 #endif
 #include <string>
 #include <vector>
