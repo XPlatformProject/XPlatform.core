@@ -2,7 +2,7 @@
 #include <memory>
 #include <cassert>
 #include <json.hpp>
-#include <xplatform.core/api.h>
+#include <XPlatform.core/api.h>
 
 char* c_xplatform_alloc_string(uint32_t size) {
 	size++;

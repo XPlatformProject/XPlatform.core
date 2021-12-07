@@ -2,7 +2,7 @@
 #define _XPLATFORM_EXTENSION_MODULE_H
 
 #include<string>
-#include<xplatform.core/api.h>
+#include<XPlatform.core/api.h>
 
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN

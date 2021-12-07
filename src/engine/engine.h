@@ -4,9 +4,9 @@
 
 #include <string>
 
-#include <xplatform.core/api.h>
+#include <XPlatform.core/api.h>
 #ifndef _DONT_INCLUDE_ext_module
-#include <xplatform.core/ext_module.h>
+#include <XPlatform.core/ext_module.h>
 #endif
 
 #ifndef _XPLATFROM_DONT_INCLUDE_JSON
@@ -88,8 +88,8 @@ namespace XPlatform {
 
 			void  UnloadEngineExtensions();
 
-			XPlatform::Api::XPResult InitEPI();
-			XPlatform::Api::XPResult InitXI();
+			void InitEPI();
+			void InitXI();
 
 		public:
 

@@ -9,6 +9,9 @@
 #define XPLATFORM_EXTENSION_SHUTDOWN_FUNCTION_NAME "xplatform_extension_shutdown"
 #define XPLATFORM_EXTENSION_INIT_FUNCTION_NAME "xplatform_extension_init"
 
+// this is internal functions:
+extern char* c_xplatform_alloc_string(uint32_t size);
+
 template<class type_t>
 XPlatform::Api::XPResult j_xplatform_get_safe_value_from_json(
 	nlohmann::json& j_json,
@@ -54,22 +57,12 @@ void XPlatfromMessageCallBack(
 
 }
 
-XPlatform::Api::XPResult XPlatform::core::Engine::InitEPI(){
-	p_EPI = NULL;
-	p_EPI = reinterpret_cast<XPlatform::core::EngineProjectInfo*>(malloc(sizeof(XPlatform::core::EngineProjectInfo)));
-	if (p_EPI == NULL) return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED_TO_ALLOCATE_MEMORY;
-	memset(p_EPI, 0, sizeof(XPlatform::core::EngineProjectInfo));
-
-	return XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS;
+void XPlatform::core::Engine::InitEPI(){
+	if (p_EPI != NULL) p_EPI = new XPlatform::core::EngineProjectInfo;
 }
 
-XPlatform::Api::XPResult XPlatform::core::Engine::InitXI() {
-	p_XI = NULL;
-	p_XI = reinterpret_cast<XPlatform::core::XPlatformInformation*>(malloc(sizeof(XPlatform::core::XPlatformInformation)));
-	if (p_XI == NULL) return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED_TO_ALLOCATE_MEMORY;
-	memset(p_XI, 0, sizeof(XPlatform::core::XPlatformInformation));
-
-	return XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS;
+void XPlatform::core::Engine::InitXI() {
+	if(p_XI != NULL) p_XI = new XPlatform::core::XPlatformInformation;
 }
 
 
@@ -230,8 +223,7 @@ XPlatform::core::Engine::Engine(){
 	p_Instance = this;
 }
 
-// this is internal functions:
-extern char* c_xplatform_alloc_string(uint32_t size);
+
 
 extern XPlatform::Api::XPResult j_xplatform_check_namespace(
 	nlohmann::json& json,
@@ -242,12 +234,12 @@ extern XPlatform::Api::XPResult j_xplatform_check_namespace(
 
 XPlatform::Api::XPResult XPlatform::core::Engine::LoadEngineInternally(const std::string& r_ProjectName, const XPlatform::core::XPlatformVersion& v_ProjectVersion) {
 
-	if (InitEPI() != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS) return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED_TO_ALLOCATE_MEMORY;
+	InitEPI();
 
 	p_EPI->s_Name = r_ProjectName;
 	p_EPI->v_Version = v_ProjectVersion;
 
-	if (InitXI() != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS) return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED_TO_ALLOCATE_MEMORY;
+	InitXI();
 
 	p_XI->s_EngineDirectory = "Internally";
 	p_XI->v_EngineVersion = { 0, 0, 0, 1 };
@@ -258,7 +250,7 @@ XPlatform::Api::XPResult XPlatform::core::Engine::LoadEngineInternally(const std
 XPlatform::Api::XPResult XPlatform::core::Engine::LoadEngine(const std::string& r_ProjectConfigFileName){
 	nlohmann::json j_ProjectJsonConfig;
 
-	if(InitEPI() != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS) return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED_TO_ALLOCATE_MEMORY;
+	InitEPI();
 
 	XPlatform::Api::XPResult res = ParseConfigFile(r_ProjectConfigFileName, j_ProjectJsonConfig);
 	if (res != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS) return res;
@@ -328,7 +320,7 @@ XPlatform::core::Engine::~Engine(){
 XPlatform::Api::XPResult XPlatform::core::Engine::LoadEngineExtensions(const std::string& s_Dir){
 	const std::string s_EngineConfigPath = s_Dir + "XPlatform.json";
 	
-	if (InitXI() != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS) return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED_TO_ALLOCATE_MEMORY;
+	InitXI();
 
 	p_XI->s_EngineDirectory.erase(0);
 	p_XI->s_EngineDirectory.resize(s_Dir.size());

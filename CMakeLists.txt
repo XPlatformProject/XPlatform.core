@@ -14,4 +14,7 @@ target_include_directories(XPlatform.core PUBLIC "include/")
 
 add_subdirectory("ThirdParty")
 
+if(UNIX)
+target_link_libraries(XPlatform.core ${CMAKE_DL_LIBS})
+endif(UNIX)
 target_link_libraries(XPlatform.core nlohmann_json)
