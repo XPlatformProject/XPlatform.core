@@ -1,5 +1,9 @@
 <h1 align="center"> types </h1>
 
+---
+## [go back](Wiki.md)
+
+---
 - XPResult - stores the result of the function:
     - XPLATFORM_RESULT_SUCCESS - the function worked successfully
     - XPLATFORM_RESULT_NEUTRAL - the function worked successfully, but there were not critical problems
@@ -23,4 +27,5 @@
     - std::string s_EngineDirectory - store the path of the engine directory
     - XPlatform::core::XPlatformVersion v_EngineVersion - stores engine version
 
-    
+---
+## [go back](Wiki.md)
