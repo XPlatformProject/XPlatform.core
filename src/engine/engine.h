@@ -35,7 +35,7 @@ namespace XPlatform {
 		struct XPlatformExtensionInfo {
 			std::string s_Name;
 			std::string s_Path;
-			int32_t ExtId;
+			uint32_t ExtId;
 			XPlatform::core::XPlatformVersion v_Version;
 		};
 
