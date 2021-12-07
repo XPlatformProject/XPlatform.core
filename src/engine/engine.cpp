@@ -58,13 +58,12 @@ void XPlatfromMessageCallBack(
 }
 
 void XPlatform::core::Engine::InitEPI(){
-	if (p_EPI != NULL) p_EPI = new XPlatform::core::EngineProjectInfo;
+	if (p_EPI == NULL) p_EPI = new XPlatform::core::EngineProjectInfo;
 }
 
 void XPlatform::core::Engine::InitXI() {
-	if(p_XI != NULL) p_XI = new XPlatform::core::XPlatformInformation;
+	if(p_XI == NULL) p_XI = new XPlatform::core::XPlatformInformation;
 }
-
 
 XPlatform::core::Engine* XPlatform::core::Engine::GetInstance(){
 	return XPlatform::core::Engine::p_Instance;
@@ -218,12 +217,10 @@ XPlatform::Api::XPResult XPlatform::core::Engine::LoadEngineExtensionInfoFromJso
 	return XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS;
 }
 
-XPlatform::core::Engine::Engine(){
+XPlatform::core::Engine::Engine() : p_EPI(NULL), p_XI(NULL) {
 	this->p_XPlatfromMessageCallBack = XPlatfromMessageCallBack;
 	p_Instance = this;
 }
-
-
 
 extern XPlatform::Api::XPResult j_xplatform_check_namespace(
 	nlohmann::json& json,
