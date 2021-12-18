@@ -8,7 +8,7 @@ add_library(XPlatform.core SHARED
 "src/engine/engine_utils.cpp" 
 "src/utils/utils.cpp"
 
-"src/ext_mod/ext_mod.cpp" "src/ext_mod/ext_mod.h"  "include/XPlatform.core/ext_module.h")
+"src/ext_mod/ext_mod.cpp" "src/ext_mod/ext_mod.h"  "include/XPlatform.core/ext_module.h" "include/XPlatform.core/XP_IObject.h")
 
 target_include_directories(XPlatform.core PUBLIC "include/")
 
