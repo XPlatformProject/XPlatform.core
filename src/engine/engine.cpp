@@ -102,6 +102,10 @@ void XPlatform::core::Engine::DeleteExtensionClass(const uint32_t ExtId, const u
 	m_ExtensionsDeletePfns[ExtId](ClassId, ptr);
 }
 
+const std::vector<XPlatform::core::XPlatformExtensionInfo>& XPlatform::core::Engine::GetExtensionsInfoList() const{
+	return m_ExtensionsInfo;
+}
+
 void XPlatform::core::Engine::SetMsgCallback(XPlatform::Api::pfnXPlatfromMessageCallBack p_CallBack){
 	p_XPlatfromMessageCallBack = p_CallBack;
 }

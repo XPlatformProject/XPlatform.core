@@ -85,6 +85,8 @@ namespace XPlatform {
 			void* CreateExtensionClass(const uint32_t ExtId, const uint32_t ClassId);
 			void  DeleteExtensionClass(const uint32_t ExtId, const uint32_t ClassId, void* ptr);
 
+			const std::vector<XPlatform::core::XPlatformExtensionInfo>& GetExtensionsInfoList() const;
+
 #ifndef _XPLATFORM_DONT_INCLUDE_EXT_MODULE_H
 
 			const XPlatform::core::XPlatformExtensionModule* GetExtensionModule(const uint32_t Id) const;

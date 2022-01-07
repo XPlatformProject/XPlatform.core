@@ -33,6 +33,13 @@ namespace XPlatform {
 		};
 
 		struct XPlatformExtensionInfo {
+			void inline operator=(const XPlatformExtensionInfo& _This) {
+				this->ExtId = _This.ExtId;
+				this->s_Name = _This.s_Name;
+				this->s_Path = _This.s_Path;
+				this->v_Version = _This.v_Version;
+			}
+
 			std::string s_Name;
 			std::string s_Path;
 			uint32_t ExtId;
@@ -110,6 +117,8 @@ namespace XPlatform {
 			
 			void* CreateExtensionClass(const uint32_t ExtId, const uint32_t ClassId);
 			void  DeleteExtensionClass(const uint32_t ExtId, const uint32_t ClassId, void* ptr);
+
+			const std::vector<XPlatform::core::XPlatformExtensionInfo>& GetExtensionsInfoList() const;
 
 #ifndef _DONT_INCLUDE_ext_module
 
