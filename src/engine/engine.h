@@ -68,6 +68,8 @@ namespace XPlatform {
 			std::vector<XPlatform::core::pfn_xplatform_ext_create_class> m_ExtensionsCreatePfns;
 			std::vector<XPlatform::core::pfn_xplatform_ext_delete_class> m_ExtensionsDeletePfns;
 
+			std::vector<uint32_t> m_vUnloadedIndices;
+
 #ifndef _XPLATFROM_DONT_INCLUDE_JSON
 			XPlatform::Api::XPResult CheckConfigFileNamespaces(
 				nlohmann::json& j_ConfigFile,
@@ -112,9 +114,11 @@ namespace XPlatform {
 
 			XPlatform::Api::XPResult LoadEngineInternally(const std::string& r_ProjectName, const XPlatform::core::XPlatformVersion& v_ProjectVersion);
 
-			XPlatform::Api::XPResult LoadExtension(const XPlatform::core::XPlatformExtensionInfo& r_XEI);
+			XPlatform::Api::XPResult LoadExtension(XPlatform::core::XPlatformExtensionInfo& r_XEI);
 			XPlatform::Api::XPResult GetExtensionInfo(const std::string& r_Name, XPlatform::core::XPlatformExtensionInfo* p_OutInformation = NULL);
 			
+			XPlatform::Api::XPResult UnLoadExtension(const std::string& r_Name);
+
 			void* CreateExtensionClass(const uint32_t ExtId, const uint32_t ClassId);
 			void  DeleteExtensionClass(const uint32_t ExtId, const uint32_t ClassId, void* ptr);
 

@@ -93,6 +93,20 @@ XPlatform::Api::XPResult XPlatform::core::Engine::GetExtensionInfo(const std::st
 	return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED;
 }
 
+XPlatform::Api::XPResult XPlatform::core::Engine::UnLoadExtension(const std::string& r_Name){
+	XPlatform::core::XPlatformExtensionInfo ExtInfo{};
+	if (GetExtensionInfo(r_Name, &ExtInfo) != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS)
+		return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED;
+
+	m_ExtensionsInfo[ExtInfo.ExtId].s_Name = "Unloaded";
+	m_ExtensionsInfo[ExtInfo.ExtId].s_Path = "Unloaded";
+
+	m_ExtensionsModules[ExtInfo.ExtId]->UnLoad();
+	delete m_ExtensionsModules[ExtInfo.ExtId];
+
+	return XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS;
+}
+
 void* XPlatform::core::Engine::CreateExtensionClass(const uint32_t ExtId, const uint32_t ClassId){
 	assert(m_ExtensionsCreatePfns.size() >= ExtId);
 	return m_ExtensionsCreatePfns[ExtId](ClassId);
@@ -118,11 +132,16 @@ void XPlatform::core::Engine::CallMsgCallback(const char* msg, XPlatform::Api::X
 	p_XPlatfromMessageCallBack(msg, status, ext_id);
 }
 
-XPlatform::Api::XPResult XPlatform::core::Engine::LoadExtension(const XPlatform::core::XPlatformExtensionInfo& r_XEI){
+XPlatform::Api::XPResult XPlatform::core::Engine::LoadExtension(XPlatform::core::XPlatformExtensionInfo& r_XEI){
 
 	XPlatform::Api::XPResult res = GetExtensionInfo(r_XEI.s_Name);
 	if (res == XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED) {
-		if (m_ExtensionsInfo.size() <= r_XEI.ExtId) {
+		if (!m_vUnloadedIndices.empty()) {
+			r_XEI.ExtId = m_vUnloadedIndices.back();
+			m_vUnloadedIndices.pop_back();
+		}
+		else {
+			r_XEI.ExtId = m_ExtensionsInfo.size();
 			m_ExtensionsInfo.resize(r_XEI.ExtId + 1);
 		}
 		m_ExtensionsInfo[r_XEI.ExtId] = r_XEI;
