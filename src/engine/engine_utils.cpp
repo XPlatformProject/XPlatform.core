@@ -5,7 +5,7 @@ XPlatform::Api::XPResult j_xplatform_check_namespace(
 	nlohmann::json& json,
 	const char* name,
 	const std::string& file_name,
-	const int32_t ext_id,
+	const uint32_t ext_id,
 	XPlatform::Api::pfnXPlatfromMessageCallBack p_XPlatfromMessageCallBack);
 
 extern char* c_xplatform_alloc_string(uint32_t size);
@@ -59,22 +59,22 @@ XPlatform::Api::XPResult XPlatform::core::Engine::GetVersionFromJson(
 		return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED_TO_PARSE_CONFIGURATION_FILE;
 
 	XPlatform::Api::XPResult res = j_xplatform_get_safe_value_from_json<uint8_t>(
-		j_Version, "Major", Version.major, FileName, 0, p_XPlatfromMessageCallBack
+		j_Version, "Major", Version.major, FileName, XPLATFORM_CORE_EXT_ID, p_XPlatfromMessageCallBack
 	);
 	if (res != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS) return res;
 
 	res = j_xplatform_get_safe_value_from_json<uint8_t>(
-		j_Version, "Minor", Version.minor, FileName, 0, p_XPlatfromMessageCallBack
+		j_Version, "Minor", Version.minor, FileName, XPLATFORM_CORE_EXT_ID, p_XPlatfromMessageCallBack
 	);
 	if (res != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS) return res;
 
 	res = j_xplatform_get_safe_value_from_json<uint8_t>(
-		j_Version, "Patch", Version.minor, FileName, 0, p_XPlatfromMessageCallBack
+		j_Version, "Patch", Version.minor, FileName, XPLATFORM_CORE_EXT_ID, p_XPlatfromMessageCallBack
 	);
 	if (res != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS) return res;
 
 	res = j_xplatform_get_safe_value_from_json<uint8_t>(
-		j_Version, "Alpha", Version.alpha, FileName, 0, p_XPlatfromMessageCallBack
+		j_Version, "Alpha", Version.alpha, FileName, XPLATFORM_CORE_EXT_ID, p_XPlatfromMessageCallBack
 	);
 	if (res != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS) return res;
 
@@ -90,7 +90,7 @@ XPlatform::Api::XPResult XPlatform::core::Engine::CheckConfigFileNamespaces(
 	
 	for (const char* name : namespaces){
 		res = 
-			j_xplatform_check_namespace(j_ConfigFile, name, FileName, 0, p_XPlatfromMessageCallBack);
+			j_xplatform_check_namespace(j_ConfigFile, name, FileName, XPLATFORM_CORE_EXT_ID, p_XPlatfromMessageCallBack);
 
 		if (res != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS)return  res;
 	}
@@ -133,7 +133,7 @@ XPlatform::Api::XPResult XPlatform::core::Engine::ParseConfigFile(
 		strcat(msg, "Json Parser Error:\n");
 		strcat(msg, Err);
 
-		p_XPlatfromMessageCallBack(msg, XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED, 0);
+		p_XPlatfromMessageCallBack(msg, XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED, XPLATFORM_CORE_EXT_ID);
 
 		free(msg);
 

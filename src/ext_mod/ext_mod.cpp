@@ -32,7 +32,7 @@ void XPlatform::core::XPlatformExtensionModule::Internal_PrintError(const char* 
 #endif
 
 	XPlatform::core::Engine::GetInstance()->
-		CallMsgCallback(Msg.c_str(), XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED, 0);
+		CallMsgCallback(Msg.c_str(), XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED, XPLATFORM_CORE_EXT_ID);
 
 	Msg.clear();
 }

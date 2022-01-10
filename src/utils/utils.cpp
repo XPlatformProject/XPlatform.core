@@ -19,7 +19,7 @@ XPlatform::Api::XPResult j_xplatform_check_namespace(
 	nlohmann::json& json,
 	const char* name,
 	const std::string& file_name,
-	const int32_t ext_id,
+	const uint32_t ext_id,
 	XPlatform::Api::pfnXPlatfromMessageCallBack p_XPlatfromMessageCallBack) {
 
 	try {

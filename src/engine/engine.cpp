@@ -18,7 +18,7 @@ XPlatform::Api::XPResult j_xplatform_get_safe_value_from_json(
 	const std::string& name,
 	type_t& output,
 	const std::string& file_name,
-	const int32_t ext_id,
+	const uint32_t ext_id,
 	XPlatform::Api::pfnXPlatfromMessageCallBack p_XPlatfromMessageCallBack) {
 
 	try {
@@ -302,7 +302,7 @@ XPlatform::Api::XPResult XPlatform::core::Engine::LoadEngine(const std::string& 
 		"Dir",
 		EngineDir,
 		r_ProjectConfigFileName,
-		-1,
+		XPLATFORM_CORE_EXT_ID,
 		p_XPlatfromMessageCallBack
 	);
 
@@ -313,7 +313,7 @@ XPlatform::Api::XPResult XPlatform::core::Engine::LoadEngine(const std::string& 
 		"Name",
 		p_EPI->s_Name,
 		r_ProjectConfigFileName,
-		-1,
+		XPLATFORM_CORE_EXT_ID,
 		p_XPlatfromMessageCallBack
 	);
 
@@ -377,7 +377,7 @@ XPlatform::Api::XPResult XPlatform::core::Engine::LoadEngineExtensions(const std
 			s_EngineConfigPath.c_str());
 		strcat(msg, "\'!");
 
-		p_XPlatfromMessageCallBack(msg, XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED, 0);
+		p_XPlatfromMessageCallBack(msg, XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED, XPLATFORM_CORE_EXT_ID);
 
 		free(msg);
 
