@@ -252,6 +252,10 @@ extern XPlatform::Api::XPResult j_xplatform_check_namespace(
 	const int32_t ext_id,
 	XPlatform::Api::pfnXPlatfromMessageCallBack p_XPlatfromMessageCallBack);
 
+void XPlatform::core::Engine::RegisterExtension(const XPlatform::core::XPlatformExtensionInfo& m_ExtInfo){
+	m_ExtensionsInfo.push_back(m_ExtInfo);
+}
+
 XPlatform::Api::XPResult XPlatform::core::Engine::LoadEngineInternally(const std::string& r_ProjectName, const XPlatform::core::XPlatformVersion& v_ProjectVersion) {
 
 	InitEPI();
@@ -263,6 +267,29 @@ XPlatform::Api::XPResult XPlatform::core::Engine::LoadEngineInternally(const std
 
 	p_XI->s_EngineDirectory = "Internally";
 	p_XI->v_EngineVersion = { 0, 0, 0, 1 };
+	
+	XPlatform::Api::XPResult res;
+	bool IsFailed = false;
+	std::ptrdiff_t i = 0;
+
+	for (XPlatform::core::XPlatformExtensionInfo& r_ExtInfo : m_ExtensionsInfo) {
+		res = LoadExtension(r_ExtInfo);
+		if (res != XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS) {
+			IsFailed = true;
+			break;
+		}
+		i++;
+	}
+
+	if (IsFailed) {
+		std::string Msg = "failed to load extension: '";
+		Msg += m_ExtensionsInfo[i].s_Name;
+		Msg += "'";
+
+		this->p_XPlatfromMessageCallBack(Msg.c_str(), XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED, XPLATFORM_CORE_EXT_ID);
+
+		return XPlatform::Api::XPResult::XPLATFORM_RESULT_FAILED;
+	}
 
 	return XPlatform::Api::XPResult::XPLATFORM_RESULT_SUCCESS;
 }

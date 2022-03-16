@@ -112,6 +112,7 @@ namespace XPlatform {
 
 			XPlatform::Api::XPResult LoadEngine(const std::string& r_ProjectConfigFileName);
 
+			void RegisterExtension(const XPlatform::core::XPlatformExtensionInfo& m_ExtInfo);
 			XPlatform::Api::XPResult LoadEngineInternally(const std::string& r_ProjectName, const XPlatform::core::XPlatformVersion& v_ProjectVersion);
 
 			XPlatform::Api::XPResult LoadExtension(XPlatform::core::XPlatformExtensionInfo& r_XEI);
