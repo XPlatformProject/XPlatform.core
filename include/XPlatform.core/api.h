@@ -10,9 +10,9 @@
 	
 	#define XPLATFORM_API_EXPORT __declspec(dllexport)
 #else
-	#define XPLATFORM_API __attribute__((dllimport))
+	#define XPLATFORM_API 
 
-	#define XPLATFORM_API_EXPORT __attribute__((dllexport))
+	#define XPLATFORM_API_EXPORT __attribute__((visibility("default")))
 #endif
 
 #define XPLATFORM_CORE_EXT_ID UINT32_MAX
